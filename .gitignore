@@ -1,0 +1,17 @@
+#Logs
+npm-debug.log*
+
+# Dependency directory
+node_modules
+
+# Enviornment vairables
+.env
+
+# Public
+public
+
+# Compiled server files
+compiled
+
+# Session Secrets
+server/config/secrets
