@@ -14,4 +14,7 @@ public
 compiled
 
 # Session Secrets
-server/config/secrets
+secrets.js
+
+#Personal Notes
+DataFlowNotes.txt

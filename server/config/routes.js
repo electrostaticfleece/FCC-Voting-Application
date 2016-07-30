@@ -3,6 +3,7 @@ import unsupportedMessage from '../db/unsupportedMessage';
 import  { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
+const pollsController = controllers && controllers.polls;
 
 export default(app) => {
 
@@ -32,11 +33,27 @@ export default(app) => {
 
     app.get('/auth/google/callback',
       passport.authenticate('google', {
-        successRedirect: '/',
-        failureRedirect: '/'
-      })
+        failureRedirect: '/failure'
+      }), (req, res) =>
+        req.session.save((err) => {
+          if(err){
+            console.log('Error: unable to save session before redirect');
+          } else {
+            res.redirect('/')
+          }
+        })
     );
   }
+
+  if(pollsController) {
+    app.get('/allpolls', pollsController.all)
+    app.post('/poll/:id', pollsController.add);
+    app.get('/poll/:id', pollsController.single);
+    app.put('/poll/:id', pollsController.increment);
+    app.delete('/poll/:id', pollsController.remove);
+  }
+
+
 
   //TODO: Add additional controllers for routing w/r/t
   // poll request information.

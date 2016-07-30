@@ -110,6 +110,9 @@ module.exports = {
         new webpack.DefinePlugin({
           __DEVCLIENT__: true,
           __DEVSERVER__: true
+        }),
+        new webpack.DefinePlugin({
+          'process.env.BROWSER': JSON.stringify(true)
         })
     ],
     postcss: postCSSConfig

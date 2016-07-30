@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import session from 'express-session';
 import bodyParser from 'body-parser';
@@ -54,6 +55,8 @@ export default(app) => {
     },
     store: sessionStore 
   };
+
+  app.use(cookieParser());
 
   app.use(session(sess));
 

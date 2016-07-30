@@ -48,12 +48,13 @@ module.exports = {
     },
     resolve: {
       root: [path.join(__dirname, '..', 'app')],
-      extensions: ['', '.js', '.jsx', '.css'],
+      extensions: ['', '.js', '.jsx', '.css']
     },
     plugins: [
         new webpack.DefinePlugin({
           __DEVCLIENT__: true,
           __DEVSERVER__: true
-        })
+        }),
+        new webpack.IgnorePlugin(/vertx/)
     ]
 };
