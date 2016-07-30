@@ -1,0 +1,24 @@
+.pollName {
+  text-decoration: none;
+  color: #f51003;
+}
+
+.colorAlt {
+  color: white;
+}
+
+.tile {
+  background-color: #D9D4D1;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin: 30px 30px;
+  padding: 30px;
+  max-width: 200px;
+}
+
+.tileAlt {
+  background-color: #434343;
+}
+
+li a:hover, li a:focus {
+  color: #3498db;
+}

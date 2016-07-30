@@ -5,15 +5,19 @@ export default (sequelize, DataTypes) => {
       allowNull: false
     },
     pollId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+    },
+    userId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Users',
         key: 'id'
       }
     },
-    items: {
-      type: DataTypes.JSON,
-      allowNull: false
+    voters: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
     }
   }, {
     timestamps: false,
@@ -22,6 +26,9 @@ export default (sequelize, DataTypes) => {
       associate(models) {
         Poll.belongsTo(models.User, {
           foreignKey: 'pollId'
+        });
+        Poll.hasMany(models.Item, {
+          foreignKey: 'poll'
         });
       }
     }

@@ -1,0 +1,37 @@
+.poll {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title {
+  color: #3498db;
+  text-align: center;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.layout {
+  max-width: 400px;
+  height: 400px;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+  width: 15%;
+}
+
+.voteBtn {
+  display: block;
+  margin-bottom: 25px;
+}
+
+.message {
+  font-size: 12px;
+  color: red;
+  text-align: center;
+  margin-bottom: 30px;
+}

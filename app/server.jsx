@@ -21,13 +21,9 @@ export default function render(req, res) {
   const store = configureStore({
     user: {
       authenticated,
-      isWaiting: false,
-      message: '',
-      isLogin: true
     }
   }, history);
   const routes = createRoutes(store);
-
   
   match({routes, location: req.url}, (err, redirect, props) => {
     if (err) {

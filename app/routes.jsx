@@ -2,6 +2,10 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from 'containers/App';
+import Home from 'containers/Home';
+import CreatePollInput from 'containers/CreatePoll';
+import ViewPoll from 'containers/ViewPoll';
+import MyPolls from 'containers/MyPolls';
 
 
 export default (store) => {
@@ -9,7 +13,7 @@ export default (store) => {
     const { user: {authenticated }} = store.getState();
     if(!authenticated) {
       replace({
-        pathname: '/login',
+        pathname: '/',
         state: { nextPathname: nextState.location.pathname }
       });
     }
@@ -27,7 +31,12 @@ export default (store) => {
   };
 
   return (
-    <Route path='/' component={App}>
+    <Route path='/' component={ App }>
+      <IndexRoute component={ Home } />
+      <Route path="about" />
+      <Route path="mypolls" onEnter={requireAuth} component={ MyPolls } />
+      <Route path="createpoll" onEnter={requireAuth} component={ CreatePollInput }/>
+      <Route path="view/:pollId" component={ ViewPoll } />
     </Route>
   );
 };

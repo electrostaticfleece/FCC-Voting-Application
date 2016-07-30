@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'userId'
         });
         User.hasMany(models.Poll, {
-          foreignKey: 'pollId'
+          foreignKey: 'userId'
         });
       },
     },

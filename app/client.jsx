@@ -25,9 +25,7 @@ function onUpdate() {
     window.__INITIAL_STATE__ = null;
     return;
   }
-
   const { components, params } = this.state;
-
   preRenderMiddleware(store.dispatch, components, params);
 }
 

@@ -81,6 +81,7 @@ export default(req, accessToken, refreshToken, profile, done) =>
   User.findOne({
     where: { google: profile.id }
   }).then((existingUser) => {
+
     if(req.user) {
       if(existingUser) {
         return done(null, false, { message: existingGoogleAccountMessage});
@@ -90,16 +91,19 @@ export default(req, accessToken, refreshToken, profile, done) =>
       );
     }
 
-    if(existingUser) return done(null, existingUser);
+    if(existingUser){
+      return done(null, existingUser);
+    } 
+
     return User.findOne({
       where: { email: profile._json.emails[0].value }
     }).then((existingEmailUser) => {
       if(existingEmailUser) {
         return done(null, false, {message: existingEmailUserMessage});
       }
-
       return createUserWithToken(profile, accessToken, done);
     });
+    
   }).catch((err) => {
     console.log(err);
     return done(null, false, {message: 'Something went wrong trying to authenticate'});

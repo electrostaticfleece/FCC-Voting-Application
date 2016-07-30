@@ -11,7 +11,7 @@ if(__DEVSERVER__) {
 const Meta = () => (
   <Helmet
     htmlAttributes={{"lang": "en", "amp": undefined}}
-    title="Voting Application" meta={config.meta}
+    title="Collision" meta={config.meta}
     link={config.link}
   />
 )

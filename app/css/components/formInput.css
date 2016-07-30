@@ -1,0 +1,54 @@
+.innerContent {
+  margin: auto auto;
+  max-width: 500px;
+}
+
+.pollTitle {
+  margin-top: 0px;
+  margin-bottom: 40px;
+  color: #434343;
+}
+
+.inputBlock {
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.nameBlock {
+  margin-bottom: 50px;
+}
+
+.errorMessage {
+  font-family: arial;
+  color: red;
+  font-size: 12px;
+}
+
+.inputField {
+  border-radius: 8px;
+  border: 0px solid;
+  box-sizing: border-box;
+  height: 30px;
+  min-width: 400px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.wrapper {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.inputField:focus {
+  outline: none;
+}
+
+input:last-child {
+  margin-bottom: 0;
+}
+
+h1 {
+
+}

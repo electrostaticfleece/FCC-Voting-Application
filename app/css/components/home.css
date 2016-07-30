@@ -1,0 +1,89 @@
+/* *
+ * GENERAL STYLES 
+ * */
+
+.red {
+  color: #f51003;
+}
+
+.black {
+  color: black;
+}
+
+/* *
+ *  HERO IMAGE
+ * */
+
+.display {
+  width: 100%;
+  text-align: center;
+  margin: auto auto;
+  padding: 145px 0px;
+  overflow: hidden;
+  background-image: url('../../img/nyc.jpg');
+  background-position: 50% 13%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.coll {
+  margin-left: -310px;
+  margin-bottom: -90px;
+}
+
+.i {
+  margin-top: -90px;
+  margin-bottom: -90px;
+}
+
+.sion { 
+  color: black;
+  margin-right: -310px;
+  margin-top: -90px;
+  margin-bottom: 60px;
+}
+
+.slogan {
+  font-size: 22px;
+}
+
+/* *
+ *  POLL LIST COLUMNS 
+ * */
+
+.polls {
+  margin: auto 30px;
+}
+
+.titleWrap {
+  margin: auto;
+}
+
+.titleWrap h2 {
+  margin: 45px 60px 15px 75px;
+  font-size: 55px;
+}
+
+.columnGroup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  align-content: flex-start;
+}
+
+.pollGroup {
+  margin: 0 auto;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+@media only screen and (max-width: 700px){
+  .titleWrap h2{
+    text-align: center;
+  }
+}

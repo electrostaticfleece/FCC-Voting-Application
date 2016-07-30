@@ -7,6 +7,10 @@ module.exports = {
           allowNull: false
         },
         pollId: {
+          typer: DataTypes.String,
+          allowNull: false
+        }
+        userId: {
           type: DataTypes.INTEGER,
           references: {
             model: 'Users',

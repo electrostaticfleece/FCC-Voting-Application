@@ -1,0 +1,26 @@
+@value font-family from './common/typography.css';
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #434343;
+}
+
+.app {
+  font-weight: normal;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: font-family;
+  color: #e8e8e8;
+}
+
+h1 {
+  font-size: 90px;
+  color: #fff;
+}
+
+h2 {
+  font-size: 35px;
+}
+
