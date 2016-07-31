@@ -12,8 +12,10 @@
     "build:dev": "cross-env NODE_ENV=development webpack --colors --config ./webpack/webpack.config.dev-server.js",
     "build:prod": "cross-env NODE_ENV=production webpack --colors --config ./webpack/webpack.config.prod.js",
     "build:node": "cross-env NODE_ENV=production npm run babel -- ./server -d ./compiled",
+    "build": "npm run clean && npm run build:prod && npm run build:node",
     "start": "cross-env NODE_ENV=production node compiled/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node scripts/postinstall.js && npm run build"
   },
   "author": "electrostaticfleece",
   "license": "ISC",
