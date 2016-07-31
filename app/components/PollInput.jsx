@@ -32,12 +32,28 @@ class PollInput extends Component {
   handleSubmit(e){
     e.preventDefault();
     const { createPoll, user } = this.props;
-    const name = this.refs.name.value;
+    const name = this.refs.name.value.trim();
     const values = this.getOptionValues();
+
+    //If there are no values or if there is no name return;
+    if (name.trim().length <= 0 ||
+        values.length <= 0 ) {
+          console.log('A poll must have a name and multiple values');
+          return;
+    }
+
+    if(values.some((option, i, arr) => 
+        i !== arr.lastIndexOf(option) || 
+        option.trim().length <= 0)){ 
+          console.log('Your submitted values must not be blank. Please delete your empty value or fill it in.');
+          return;
+    }
+
     const data = {
       name: name,
       options: values
     };
+
     if(this.state.submitted === false){
       createPoll(data);
     }

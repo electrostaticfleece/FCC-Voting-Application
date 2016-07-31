@@ -3,6 +3,7 @@ import path from 'path';
 import Sequelize from 'sequelize'
 import sequelizeConfig from '../sequelize_config';
 import { ENV } from '../../../config/appConfig';
+import { databaseURL } from '../../../config/secrets';
 
 console.log('Configuring Sequelize')
 const config = sequelizeConfig[ENV];
@@ -10,7 +11,7 @@ const basename = path.basename(module.filename);
 const db = {};
 let sequelize; 
 
-const dbUrl = process.env.DATABASE_URL;
+const dbUrl = process.env.DATABASE_URL || databaseURL;
 
 sequelize = new Sequelize(dbUrl, config);
 

@@ -105,14 +105,15 @@ export function add(data){
 export function createPoll(poll){ 
   const { name, options } = poll;
   return(dispatch, getState) => {
-
+    
     //If there is no name or there are no options do not createPoll
     if (name.trim().length <= 0 ||
         options.length <= 0 ) return;
 
-    //If an option is repeated do not createPoll
+    //If an option is repeated or an option is do not createPoll
     if(options.some((option, i, arr) => 
-      i !== arr.lastIndexOf(option)
+      i !== arr.lastIndexOf(option) || 
+      option.trim().length <= 0
     )) return;
 
     //Generate a unique ID to create relation between poll and items

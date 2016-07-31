@@ -117,7 +117,7 @@ module.exports = [
         }),
         new webpack.DefinePlugin({
           __DEVCLIENT__: false,
-          __DEVSERVER__: false
+          __DEVSERVER__: false,
         }),
         new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' })
     ],

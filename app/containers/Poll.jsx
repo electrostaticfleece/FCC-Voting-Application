@@ -80,12 +80,17 @@ class Poll extends Component {
   handleSubmit(e){
     e.preventDefault();
     const { addOption, poll: { currentPoll: { id } } } = this.props;
-    const option = this.refs.newOption.value;
+    const option = this.refs.newOption.value.trim();
     const data = {
       option, 
       pollId: id
     };
-    console.log('The pollId is ' + id)
+    
+    if(option.length <=0){
+      console.log('The option must not be empty');
+      return;
+    }
+
     if(this.state.submitted === false ){
       addOption(data);
     }
