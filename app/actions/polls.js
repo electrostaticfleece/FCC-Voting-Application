@@ -85,6 +85,14 @@ export function increment(data){
   };
 }
 
+export function add(data){
+  return {
+    type: types.ADD_OPTION,
+    id: data.id,
+    option: data.option
+  }
+}
+
 //SERVER REQUESTS
 
 // The following action creators return a function,
@@ -93,7 +101,7 @@ export function increment(data){
 // to have side effects, including executing asynchronous API calls.
 
 
-//TODO: Make options object consistent across requests
+//CREATE & UPDATE REQUESTS
 export function createPoll(poll){ 
   const { name, options } = poll;
   return(dispatch, getState) => {
@@ -144,32 +152,58 @@ export function createPoll(poll){
 }
 
 export function incrementCount(data) {
-  const { pollId } = data;
+  const { pollId, itemId } = data;
   return (dispatch, getState) => {
     return makePollRequest('put', pollId, {
       updateType: 'increment',
-      item: data.itemId
+      item: itemId
     })
     .then( res => {
       if(res.status === 200){
-        return dispatch(increment({id: data.itemId}))
+        return dispatch(increment({id: itemId}))
       }
       if(res.status === 204){
-        return dispatch(message({message: 'We cannot process your request because you already voted for this poll.'}))
+        return dispatch(message({message: 'We cannot process your request because you already voted for this poll.'}));
       }
     })
     .catch(() => 
-      dispatch(createPollFailure({id: data.pollId, error: 'Something went wrong. We were unable to add your vote'}))
+      dispatch(createPollFailure({id: pollId, error: 'Something went wrong. We were unable to add your vote'}))
     );
   };
 }
 
+export function addOption(data) {
+  const { option, pollId } = data;
+  return (dispatch, getState) => {
+    return makePollRequest('put', pollId, {
+      updateType: 'add',
+      item: data.option
+    })
+    .then( res => {
+      if(res.status === 200){
+        return dispatch(add({option: data.option, id: res.data.id}))
+      }
+      if(res.status === 204){
+        return dispatch(message({message: 'We cannot process your request because you already voted for this poll.'}));
+      }
+    })
+    .catch(() => 
+      dispatch(createPollFailure({id: data.pollId, error: 'Something went wrong. We were unable to add an option'}))
+    );
+  };
+}
+
+//DELETE REQUESTS 
+
 export function destroyPoll(data){
+  console.log(data);
   return {
     type: types.DESTROY_POLL,
-    promise: makePollRequest('delete', data.pollId)
+    promise: makePollRequest('delete', data)
   }
 }
+
+//GET REQUESTS
 
 export function fetchPolls(){
   return {

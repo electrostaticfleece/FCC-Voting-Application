@@ -17,6 +17,12 @@
 
 .tileAlt {
   background-color: #434343;
+  margin: 30px auto;
+}
+
+.button {
+  margin: auto auto;
+  text-align: center;
 }
 
 li a:hover, li a:focus {

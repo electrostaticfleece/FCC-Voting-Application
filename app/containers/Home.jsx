@@ -50,7 +50,7 @@ class Home extends Component {
       return (
         <div key ={i} className={cx('pollGroup')}>
           <ul key={i} >
-            {set.map((poll) => (<PollNames poll = { poll } key={poll.pollId} />))}
+            {set.map((poll) => (<PollNames poll = { poll } key={poll.pollId} button = {() => null} />))}
           </ul>
         </div>
       )

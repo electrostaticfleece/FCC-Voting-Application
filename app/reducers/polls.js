@@ -16,6 +16,8 @@ const options = (
           }
           return option;
         });
+    case types.ADD_OPTION:
+      return [...state, {count: 1, item: action.option, id: action. id}]
     default: 
       return state;
   }
@@ -39,6 +41,7 @@ const currentPoll = (
         options: action.options
       };
     case types.INCREMENT_COUNT:
+    case types.ADD_OPTION:
       return Object.assign({}, state, {options: options(state.options, action) })
     case types.DISPERSE_MESSAGE: 
       return state;
@@ -58,6 +61,7 @@ const allPolls = (
 ) => {
   switch(action.type) {
     case types.FETCH_POLLS_SUCCESS:
+    case types.DESTROY_POLL_SUCCESS:
       return action.res.data;
     default:
       return state;

@@ -3,13 +3,16 @@ import Chart from 'chart.js';
 import {connect} from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from 'css/components/polls';
-import { incrementCount } from 'actions/polls';
+import { incrementCount, addOption } from 'actions/polls';
 
 const cx = classNames.bind(styles);
 
 class Poll extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      submitted: false
+    }
   }
 
   componentDidMount(){
@@ -61,6 +64,34 @@ class Poll extends Component {
     })
   }
 
+  addPollOption(){
+    const { user } = this.props;
+    if(user){
+      return(
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <input type="text" ref="newOption" placeholder="Add your own poll Option" />
+          <input type="submit"/>
+        </form>
+      )
+    }
+    return;
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    const { addOption, poll: { currentPoll: { id } } } = this.props;
+    const option = this.refs.newOption.value;
+    const data = {
+      option, 
+      pollId: id
+    };
+    console.log('The pollId is ' + id)
+    if(this.state.submitted === false ){
+      addOption(data);
+    }
+    this.setState({submitted: true});
+  }
+
   render() {
     const { poll, message } = this.props;
     return (
@@ -75,6 +106,9 @@ class Poll extends Component {
             <canvas width="400px" height="400px" ref={'chart'}></canvas>
           </div>
         </div>
+        <div>
+        {this.addPollOption()}
+        </div>
       </div>
     )
   }
@@ -83,8 +117,9 @@ class Poll extends Component {
 function mapStateToProps(state) {
   return {
     poll: state.poll,
-    message: state.message
+    message: state.message,
+    user: state.user
   }
 }
 
-export default connect(mapStateToProps, { incrementCount })(Poll);
+export default connect(mapStateToProps, { incrementCount, addOption })(Poll);

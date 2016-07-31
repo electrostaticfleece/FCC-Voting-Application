@@ -3,17 +3,21 @@ const Poll = Models.Poll;
 const Item = Models.Item;
 const sequelize = Models.sequelize; 
 
+function getPollData(poll, user){
+  const isOwner = (poll.userId === user);
+  return {question: poll.question, pollId: poll.pollId, isOwner: isOwner };
+}
+
 //ADD POLL AND ITEMS TO DATABASE
 
 export function all(req, res) {
+
   const user = (typeof req.user === 'undefined') ? null : req.user.id;
+
   //Find all polls 
   Poll.findAll().then((polls) => {
     const allPolls = polls.map((poll) => {
-
-      const isOwner = (poll.userId === user);
-      return {question: poll.question, pollId: poll.pollId, isOwner: isOwner };
-
+      return getPollData(poll, user);
     });
     res.json(allPolls);
   }).catch((err) => {
@@ -77,55 +81,82 @@ export function increment(req, res){
   }
 
   //If the update type is increment then find the poll and increment it.
-  if(updateType === 'increment'){
-    Poll.find({ where: query }).then(function(poll){
+  Poll.find({ where: query }).then(function(poll){
 
-      //If the voter has already voted then don't allow them to vote.
-      if(poll.voters.indexOf(voter) !== -1){
-        res.status(204).send('We cannot add your vote because you voted already');
-        return null;
-      } else {
+    //If the voter has already voted then don't allow them to vote.
+    if(poll.voters.indexOf(voter) !== -1){
+      res.status(204).send('We cannot add your vote because you voted already');
+      return null;
+    }
 
-        //Increment the count on the item by one.
+    //Increment the count on the item by one.
+      if(updateType === 'increment'){
         Item.update({ 
           count: sequelize.literal('count+1')
         }, { where: { id: item } }).then(() => {
           poll.voters.push(voter);
-
           //Add the user to the list of voters who have already voted.
           Poll.update({ voters: poll.voters }, { where: query }).then(() => {
             res.status(200).send('OK: We added your vote');
-            return null;
+            return true;
           });
-          return null;
+          return true;
         });
-        return null;
+        return true;
+      }
+      //Add the item and set the count to one. 
+
+      if(updateType === 'add'){
+        let itemId;
+        console.log(req.body);
+        Item.create({
+          item: item,
+          count: 1,
+          poll: req.params.id
+        }).then((item) => {
+          itemId = item.id;
+          poll.voters.push(voter);
+          //Add the user to the list of voters who have already voted.
+          Poll.update({ voters: poll.voters }, { where: query }).then(() => {
+            res.json({id: itemId});
+            return true;
+          });
+        });
       }
     })
     .catch((err) => {
       res.status(500).send('Something went wrong and we could not update')
     })
-  }
 
 }
 
 export function remove(req, res){
-  const query = { pollId: req.params.id };
-  const query2 = { poll: req.params.id };
+  const id = req.params.id;
+  const query = { poll: id }
+  const user = req.user.id;
 
-  Item.findAll({where: query2 }).then((items) => {
+  Item.findAll({where: query}).then((items) => {
     items.forEach((item) => {
       item.destroy();
     });
+    return true;
   }).then(() => {
-    Poll.findOne({where: query }).then((poll) => {
-      poll.destroy();
+    Poll.findAll().then((polls) => {
+      const allPolls = polls.filter((poll) => {
+        if(poll.pollId === req.params.id){
+          poll.destroy();
+          return false; 
+        }
+        return true;
+      }).map((poll) => {
+        return getPollData(poll, user);
+      });
+      console.log(allPolls.length);
+      res.json(allPolls);
     })
-  }).then(() => {
-    
-  })
-  .catch((err) => {
-    res.status(500).send('Something went wrong and we could not delete your poll.')
+    return true;
+  }).catch((err) => {
+    res.status(500).send('Something went wrong. We could not destroy your poll.')
   })
 }
 

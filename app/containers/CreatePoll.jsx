@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { createPoll } from 'actions/polls'
 
 import PollInput from 'components/PollInput';
-import Layout from 'components/Layout'
+import Layout from 'components/Layout';
+
+
 
 
 class CreatePollInput extends Component {

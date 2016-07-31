@@ -1,10 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPolls, deletePoll } from 'actions/polls'
+import { fetchPolls, destroyPoll } from 'actions/polls'
 
 import Layout from 'components/Layout'
 import PollNames from 'components/PollNames'
 
+import classNames from 'classnames/bind';
+import styles from 'css/components/myPolls';
+
+const cx = classNames.bind(styles);
 
 class MyPolls extends Component {
   constructor(props){
@@ -13,12 +17,21 @@ class MyPolls extends Component {
     fetchPolls();
   }
 
+  deleteButton(pollId){
+    const { destroyPoll } = this.props;
+    return (
+      <button className={cx('deleteButton')} onClick = { () => destroyPoll(pollId) } >
+        Delete Poll
+      </button>
+    )
+  }
+
   listPolls(){
     const { poll: {allPolls} } = this.props;
     if(Array.isArray(allPolls)){
       return allPolls.filter((poll) =>  
       poll.isOwner ).map((poll) =>
-      ( <PollNames alt = {true} poll = { poll } /> )
+      ( <PollNames key = { poll.pollId } alt = {true} poll = { poll } button = { this.deleteButton.bind(this) } /> )
       );  
     } 
     return;
@@ -29,9 +42,10 @@ class MyPolls extends Component {
       <div>
         <Layout>
           <div>
-            <ul>
-              {this.listPolls()}
-            </ul>
+            <h2 className={cx('myPollsHeader')} >My Polls</h2>
+              <ul>
+                {this.listPolls()}
+              </ul>
           </div>
         </Layout>
       </div>
@@ -47,4 +61,4 @@ function mapStateToProps(state) {
   }
 } 
 
-export default connect(mapStateToProps, {fetchPolls})(MyPolls)
+export default connect(mapStateToProps, {fetchPolls, destroyPoll})(MyPolls)

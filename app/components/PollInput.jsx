@@ -31,15 +31,13 @@ class PollInput extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    const { createPoll } = this.props;
-    const { user } = this.props;
+    const { createPoll, user } = this.props;
     const name = this.refs.name.value;
     const values = this.getOptionValues();
     const data = {
       name: name,
       options: values
     };
-    console.log(this.state.submitted);
     if(this.state.submitted === false){
       createPoll(data);
     }

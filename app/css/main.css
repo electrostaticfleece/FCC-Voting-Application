@@ -24,3 +24,16 @@ h2 {
   font-size: 35px;
 }
 
+button {
+  background-color: #3498db;
+  padding: 10px;
+  border: 0px;
+  border-radius: 15px;
+  color: white;
+}
+
+button:hover {
+  background-color: #1abc9c;
+  cursor: pointer;
+}
+
