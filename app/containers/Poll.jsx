@@ -66,7 +66,7 @@ class Poll extends Component {
 
   addPollOption(){
     const { user } = this.props;
-    if(user){
+    if(user.authenticated){
       return(
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="newOption" placeholder="Add your own poll Option" />
