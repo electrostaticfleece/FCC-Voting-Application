@@ -33,7 +33,7 @@ export default(app) => {
 
     app.get('/auth/google/callback',
       passport.authenticate('google', {
-        failureRedirect: '/failure'
+        failureRedirect: '/'
       }), (req, res) =>
         req.session.save((err) => {
           if(err){
