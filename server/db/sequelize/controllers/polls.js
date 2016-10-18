@@ -108,7 +108,6 @@ export function increment(req, res){
 
       if(updateType === 'add'){
         let itemId;
-        console.log(req.body);
         Item.create({
           item: item,
           count: 1,
@@ -151,7 +150,6 @@ export function remove(req, res){
       }).map((poll) => {
         return getPollData(poll, user);
       });
-      console.log(allPolls.length);
       res.json(allPolls);
     })
     return true;

@@ -33,7 +33,6 @@ export default (store) => {
   return (
     <Route path='/' component={ App }>
       <IndexRoute component={ Home } />
-      <Route path="about" />
       <Route path="mypolls" onEnter={requireAuth} component={ MyPolls } />
       <Route path="createpoll" onEnter={requireAuth} component={ CreatePollInput }/>
       <Route path="view/:pollId" component={ ViewPoll } />

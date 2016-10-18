@@ -197,7 +197,6 @@ export function addOption(data) {
 //DELETE REQUESTS 
 
 export function destroyPoll(data){
-  console.log(data);
   return {
     type: types.DESTROY_POLL,
     promise: makePollRequest('delete', data)

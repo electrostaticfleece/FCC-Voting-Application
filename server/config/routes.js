@@ -8,7 +8,7 @@ const pollsController = controllers && controllers.polls;
 export default(app) => {
 
   if(usersController){
-    app.post('/logout', usersController.logout)
+    app.get('/logout', usersController.logout)
   } else {
     console.warn(unsupportedMessage('users routes'));
   }

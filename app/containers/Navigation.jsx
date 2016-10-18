@@ -15,7 +15,6 @@ class Navigation extends Component {
       authLinks: [
         { Name: 'My Polls', LinkTo: '/mypolls'},
         { Name: 'Create Poll', LinkTo: '/createpoll'},
-        { Name: 'Logout', LinkTo: '', onClick: this.props.logOut},
       ]
     };
     
@@ -28,7 +27,7 @@ class Navigation extends Component {
         ( <Link to={link.LinkTo} onClick={link.onClick} key={i}>
             {link.Name}
           </Link> 
-        )) :
+        )).concat(<a href={'/logout'}>Logout</a>) :
         <a href="/auth/google">Google Login</a>
   }
 
