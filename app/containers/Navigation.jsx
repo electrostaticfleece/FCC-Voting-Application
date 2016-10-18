@@ -27,7 +27,7 @@ class Navigation extends Component {
         ( <Link to={link.LinkTo} onClick={link.onClick} key={i}>
             {link.Name}
           </Link> 
-        )).concat(<a href={'/logout'}>Logout</a>) :
+        )).concat(<a href={'/logout'} key={2}>Logout</a>) :
         <a href="/auth/google">Google Login</a>
   }
 
